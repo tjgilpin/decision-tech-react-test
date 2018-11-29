@@ -28,15 +28,18 @@ class ChannelList extends React.Component {
 
 class DealRow extends React.Component {
   render() {
+    const deal = this.props.deal;
+    const mbUsage = `${(deal.speed.sortValue) / 1024} mb`;    
+
     return (
       <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><img src="" alt="" /></td>
+        <td>{deal.title}</td>
+        <td>{deal.contractLength}months</td>
+        <td>{mbUsage}</td>
+        <td><img src={deal.offer.smallLogo} alt={deal.offer.title} /></td>
         <td><ChannelList/></td>
         <td><MobileList/></td>
-        <td></td>
+        <td>&pound;{deal.prices[0].firstYear}</td>
       </tr>
     );
   }
