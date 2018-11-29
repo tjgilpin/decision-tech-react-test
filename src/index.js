@@ -74,6 +74,17 @@ class DealFilter extends React.Component {
 
 class DealTable extends React.Component {
   render() {
+    const rows = [];
+
+    this.props.deals.forEach((deal) => {
+      rows.push(
+        <DealRow
+          deal={deal}
+          key={deal.id}
+        />
+      );
+    });
+
     return (
       <div className="deal-grid-content">
         <DealFilter/>
@@ -90,7 +101,7 @@ class DealTable extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <DealRow/>
+            {rows}
           </tbody>
         </table>
       </div>  
