@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import json from './assets/deals.json';
+
+const deals = json.deals;
 
 class MobileList extends React.Component {
   render() {
@@ -128,7 +131,7 @@ class FilterableDealGrid extends React.Component {
 }
 
 ReactDOM.render(
-  <FilterableDealGrid />,
+  <FilterableDealGrid deals={deals} />,
   document.getElementById('root')
 );
 
