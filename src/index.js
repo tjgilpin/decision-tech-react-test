@@ -124,7 +124,9 @@ class FilterableDealGrid extends React.Component {
     return (
       <div className="deal-grid-container">
         <Header/>
-        <DealTable/>
+        <DealTable
+          deals={this.props.deals}
+        />
       </div>
     );
   }
