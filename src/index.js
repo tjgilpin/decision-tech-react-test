@@ -20,8 +20,10 @@ class MobileList extends React.Component {
 
 class ChannelList extends React.Component {
   render() {
+    const popularChannel = this.props.popularChannel;
+
     return (
-      <img src="" alt="" />
+      <img src={popularChannel.logo} alt={popularChannel.name} />
     );
   }
 }
@@ -29,7 +31,16 @@ class ChannelList extends React.Component {
 class DealRow extends React.Component {
   render() {
     const deal = this.props.deal;
-    const mbUsage = `${(deal.speed.sortValue) / 1024} mb`;    
+    const mbUsage = `${(deal.speed.sortValue) / 1024} mb`;  
+    const channelList =[];      
+
+    deal.popularChannels.forEach((popularChannel) => {
+      channelList.push(
+        <ChannelList
+          popularChannel={popularChannel}
+        />
+      );
+    });
 
     return (
       <tr>
@@ -37,7 +48,7 @@ class DealRow extends React.Component {
         <td>{deal.contractLength}months</td>
         <td>{mbUsage}</td>
         <td><img src={deal.offer.smallLogo} alt={deal.offer.title} /></td>
-        <td><ChannelList/></td>
+        <td>{channelList}</td>
         <td><MobileList/></td>
         <td>&pound;{deal.prices[0].firstYear}</td>
       </tr>
