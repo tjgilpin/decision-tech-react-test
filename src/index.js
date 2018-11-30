@@ -53,7 +53,7 @@ class DealRow extends React.Component {
       <tr>
         <td>{deal.title}</td>
         <td>{deal.contractLength}months</td>
-        <td>{mbUsage}</td>
+        <td>{mbUsage}<br/>{deal.usage.label}</td>
         <td><img src={deal.offer.smallLogo} alt={deal.offer.title} /></td>
         <td>{channelList}</td>
         <td><MobileList mobile={deal.mobile} /></td>
@@ -81,7 +81,7 @@ class DealFilter extends React.Component {
             Mobile
           </label>
           <label>
-            Speed
+            Speed/Usage
             <select name="" id="">
               <option value="any">Any</option>
               <option value="76mb">76mb</option>
