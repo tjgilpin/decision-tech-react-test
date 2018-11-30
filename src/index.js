@@ -7,14 +7,21 @@ const deals = json.deals;
 
 class MobileList extends React.Component {
   render() {
+    const mobile = this.props.mobile
+
+    if (!mobile) {
+      return (
+        "N/A"
+      );
+    }  
     return (
       <ul>
-        <li>Data:</li>
-        <li>Minutes:</li>
-        <li>Texts:</li>
-        <li>Connection:</li>
+        <li>Data: {mobile.data.label}</li>
+        <li>Minutes: {mobile.minutes.label}</li>
+        <li>Texts: {mobile.data.texts}</li>
+        <li>Connection Type: {mobile.connectionType.label}</li>
       </ul>
-    );
+    );  
   }
 }
 
@@ -49,7 +56,7 @@ class DealRow extends React.Component {
         <td>{mbUsage}</td>
         <td><img src={deal.offer.smallLogo} alt={deal.offer.title} /></td>
         <td>{channelList}</td>
-        <td><MobileList/></td>
+        <td><MobileList mobile={deal.mobile} /></td>
         <td>&pound;{deal.prices[0].firstYear}</td>
       </tr>
     );
