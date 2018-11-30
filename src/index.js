@@ -18,7 +18,7 @@ class MobileList extends React.Component {
       <ul>
         <li>Data: {mobile.data.label}</li>
         <li>Minutes: {mobile.minutes.label}</li>
-        <li>Texts: {mobile.data.texts}</li>
+        <li>Texts: {mobile.texts.label}</li>
         <li>Connection Type: {mobile.connectionType.label}</li>
       </ul>
     );  
