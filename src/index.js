@@ -25,7 +25,7 @@ class MobileList extends React.Component {
   }
 }
 
-class ChannelList extends React.Component {
+class ChannelItem extends React.Component {
   render() {
     const popularChannel = this.props.popularChannel;
 
@@ -43,7 +43,7 @@ class DealRow extends React.Component {
 
     deal.popularChannels.forEach((popularChannel, index) => {
       channelList.push(
-        <ChannelList
+        <ChannelItem
           popularChannel={popularChannel}
           key={index}
         />
