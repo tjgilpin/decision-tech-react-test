@@ -41,10 +41,11 @@ class DealRow extends React.Component {
     const mbUsage = `${(deal.speed.sortValue) / 1024} mb`;  
     const channelList =[];      
 
-    deal.popularChannels.forEach((popularChannel) => {
+    deal.popularChannels.forEach((popularChannel, index) => {
       channelList.push(
         <ChannelList
           popularChannel={popularChannel}
+          key={index}
         />
       );
     });
@@ -68,6 +69,7 @@ class DealFilter extends React.Component {
     return (
       <div className="deal-grid-filter">
         <form>
+
           <label>
             <input type="checkbox" name="" id=""/>
             Broadband
