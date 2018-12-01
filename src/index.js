@@ -134,9 +134,9 @@ class DealTable extends React.Component {
 class NavMenu extends React.Component {
   constructor () {
     super()
-    this.state = {
-      visible: false
-    }
+    window.matchMedia("(min-width: 960px)").matches
+    ? this.state = { visible: true }
+    : this.state = { visible: false }
   }
   toggleVisible () {
     this.setState({

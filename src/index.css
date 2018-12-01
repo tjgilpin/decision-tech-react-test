@@ -13,6 +13,12 @@ code {
     monospace;
 }
 
+@media only screen and (max-width : 960px) {
+  .deal-grid-nav {
+    display: block;
+  }
+}
+
 @media only screen and (min-width : 960px) {
   .deal-grid-nav {
     display: none;
