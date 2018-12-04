@@ -65,73 +65,6 @@ class DealRow extends React.Component {
 }
 
 class DealFilter extends React.Component {
-  render() {
-    return (
-      <div className="deal-grid-filter">
-        <form>
-
-          <label>
-            <input type="checkbox" name="" id=""/>
-            Broadband
-          </label>
-          <label>
-            <input type="checkbox" name="" id=""/>
-            TV
-          </label>
-          <label>
-            <input type="checkbox" name="" id=""/>
-            Mobile
-          </label>
-          <label>
-            Speed/Usage
-            <select name="" id="">
-              <option value="any">Any</option>
-              <option value="76mb">76mb</option>
-            </select>
-          </label>
-        </form>
-      </div>
-    );
-  }
-}
-
-class DealTable extends React.Component {
-  render() {
-    const rows = [];
-
-    this.props.deals.forEach((deal) => {
-      rows.push(
-        <DealRow
-          deal={deal}
-          key={deal.id}
-        />
-      );
-    });
-
-    return (
-      <div className="deal-grid-content">
-        <table className="deal-grid-table">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Contract Length</th>
-              <th>Speed/Usage</th>
-              <th>Offer</th>
-              <th>TV</th>
-              <th>Mobile</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows}
-          </tbody>
-        </table>
-      </div>  
-    );
-  }
-}
-
-class NavMenu extends React.Component {
   constructor () {
     super()
     window.matchMedia("(min-width: 960px)").matches
@@ -152,11 +85,72 @@ class NavMenu extends React.Component {
         </svg>
         {
           this.state.visible &&
-            <DealFilter/>
+          <div className="deal-grid-filter">
+            <form>
+              <label>
+                <input type="checkbox" name="" id=""/>
+                Broadband
+              </label>
+              <label>
+                <input type="checkbox" name="" id=""/>
+                TV
+              </label>
+              <label>
+                <input type="checkbox" name="" id=""/>
+                Mobile
+              </label>
+              <label>
+                Speed/Usage
+                <select name="" id="">
+                  <option value="any">Any</option>
+                  <option value="76mb">76mb</option>
+                </select>
+              </label>
+            </form>
+          </div>
         }
-      </nav>
+      </nav>      
     );
-  }  
+  }
+}
+
+class DealTable extends React.Component {
+  render() {
+    const rows = [];
+
+    this.props.deals.forEach((deal) => {
+      rows.push(
+        <DealRow
+          deal={deal}
+          key={deal.id}
+        />
+      );
+    });
+
+    return (
+      <>
+      <DealFilter/>
+      <div className="deal-grid-content">
+        <table className="deal-grid-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Contract Length</th>
+              <th>Speed/Usage</th>
+              <th>Offer</th>
+              <th>TV</th>
+              <th>Mobile</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows}
+          </tbody>
+        </table>
+      </div>  
+      </>
+    );
+  }
 }
 
 class Header extends React.Component {
@@ -164,7 +158,6 @@ class Header extends React.Component {
     return (
       <header className="deal-grid-header">
         <img src="" alt="" />
-        <NavMenu/>
       </header>
     );
   }
