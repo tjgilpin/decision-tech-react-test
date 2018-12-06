@@ -65,12 +65,27 @@ class DealRow extends React.Component {
 }
 
 class DealFilter extends React.Component {
-  constructor () {
-    super()
+  constructor(props) {
+    super(props)
     window.matchMedia("(min-width: 960px)").matches
     ? this.state = { visible: true }
     : this.state = { visible: false }
+
+    this.handleBroadbandChange = this.handleBroadbandChange.bind(this);
+    this.handleTvChange = this.handleTvChange.bind(this);
+    this.handleMobileChange = this.handleMobileChange.bind(this);
   }
+
+  handleBroadbandChange(e) {
+    this.props.onBroadbandChange(e.target.checked);
+  }
+  handleTvChange(e) {
+    this.props.onTvChange(e.target.checked);
+  }
+  handleMobileChange(e) {
+    this.props.onMobileChange(e.target.checked);
+  }
+
   toggleVisible () {
     this.setState({
       visible: !this.state.visible
@@ -79,8 +94,8 @@ class DealFilter extends React.Component {
 
   render() {
     return (
-      <nav className="deal-grid-nav" onClick={this.toggleVisible.bind(this)}>
-        <svg height="32px" id="Layer_1" version="1.1" viewBox="0 0 32 32" width="32px" xmlns="http://www.w3.org/2000/svg">
+      <nav className="deal-grid-nav">
+        <svg  onClick={this.toggleVisible.bind(this)} height="32px" id="Layer_1" version="1.1" viewBox="0 0 32 32" width="32px" xmlns="http://www.w3.org/2000/svg">
           <path d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z" />
         </svg>
         {
@@ -88,24 +103,30 @@ class DealFilter extends React.Component {
           <div className="deal-grid-filter">
             <form>
               <label>
-                <input type="checkbox" name="" id=""/>
+                <input
+                  type="checkbox"
+                  checked={this.props.broadbandFilter}
+                  onChange={this.handleBroadbandChange}
+                />
                 Broadband
               </label>
               <label>
-                <input type="checkbox" name="" id=""/>
+                <input
+                  type="checkbox"
+                  checked={this.props.tvFilter}
+                  onChange={this.handleTvChange}
+                />
                 TV
               </label>
               <label>
-                <input type="checkbox" name="" id=""/>
+                <input
+                  type="checkbox"
+                  checked={this.props.mobileFilter}
+                  onChange={this.handleMobileChange}
+                />
                 Mobile
               </label>
-              <label>
-                Speed/Usage
-                <select name="" id="">
-                  <option value="any">Any</option>
-                  <option value="76mb">76mb</option>
-                </select>
-              </label>
+
             </form>
           </div>
         }
@@ -115,10 +136,87 @@ class DealFilter extends React.Component {
 }
 
 class DealTable extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      broadbandFilter: true,
+      tvFilter: true,
+      mobileFilter: true,
+    }    
+
+    this.handleBroadbandChange = this.handleBroadbandChange.bind(this);
+    this.handleTvChange = this.handleTvChange.bind(this);
+    this.handleMobileChange = this.handleMobileChange.bind(this);
+
+  }
+
+  handleBroadbandChange(broadbandFilter) {
+    this.setState({
+      broadbandFilter: broadbandFilter
+    })
+  }
+
+  handleTvChange(tvFilter) {
+    this.setState({
+      tvFilter: tvFilter
+    })
+  }
+
+  handleMobileChange(mobileFilter) {
+    this.setState({
+      mobileFilter: mobileFilter
+    })
+  }
+
+    // const rowsMobileFiltered = this.props.deals.includes('Mobile');
+
+    // console.log(rowsMobileFiltered)
+    
+    // if (!this.state.mobileFilter)
+    // {
+    //   rowsFiltered.filter(rowFiltered => rowFiltered.productTypes.includes('Mobile'))
+    //   console.log(rowsFiltered)
+    // }    
+
+
+
+
+    // if (!this.state.mobileFilter) {
+    //   this.props.deals.filter(deal => deal.productTypes.includes('TV'))
+    //   console.log(deal)
+    // }    
+        
+    // !this.state.mobileFilter ? '' : ''
+
+    // if (!this.state.mobileFilter) {
+    //   this.props.deals.filter(item => item.productTypes.includes('TV'))
+    //   console.log(item)
+    // }
+
+    // console.log(rowsFiltered)
+  
+
   render() {
     const rows = [];
 
     this.props.deals.forEach((deal) => {
+      if (!this.state.broadbandFilter && deal.productTypes.includes('Broadband'))
+      {
+        return
+      }      
+      if (!this.state.broadbandFilter && deal.productTypes.includes('Fibre Broadband'))
+      {
+        return
+      }      
+      if (!this.state.mobileFilter && deal.productTypes.includes('Mobile'))
+      {
+        return
+      }      
+      if (!this.state.tvFilter && deal.productTypes.includes('TV'))
+      {
+        return
+      } 
+      
       rows.push(
         <DealRow
           deal={deal}
@@ -129,7 +227,16 @@ class DealTable extends React.Component {
 
     return (
       <>
-      <DealFilter/>
+      <DealFilter
+        broadbandFilter={this.state.broadbandFilter}
+        tvFilter={this.state.tvFilter}
+        mobileFilter={this.state.mobileFilter}
+
+        onBroadbandChange={this.handleBroadbandChange}        
+        onTvChange={this.handleTvChange}        
+        onMobileChange={this.handleMobileChange}        
+
+      />
       <div className="deal-grid-content">
         <table className="deal-grid-table">
           <thead>
